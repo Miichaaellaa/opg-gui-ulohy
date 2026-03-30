@@ -1,21 +1,59 @@
 package sk.spse.uloha3.declarative;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.application.HostServices;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
-/**
- * Controller pre FXML súbor – obsahuje logiku aplikácie
- */
 public class Controller {
 
-    private int counter = 0;
+    @FXML
+    private Button zavrietButton;
 
     @FXML
-    private TextField counterField;
+    private Hyperlink hyperlink;
 
     @FXML
-    private void incrementCounter() {
-        counter++;
-        counterField.setText(String.valueOf(counter));
+    private ImageView obrazok;
+
+    @FXML
+    private Slider slider;
+
+    private HostServices hostServices;
+
+    @FXML
+    public void initialize() {
+        zavrietButton.setOnAction(event -> handleZavriet());
+        slider.setValue(0);
+
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            obrazok.setRotate(newValue.doubleValue());
+        });
     }
+
+    private void handleZavriet() {
+        Platform.exit();
+    }
+
+    public void setHostServices(HostServices hostServices) {
+        this.hostServices = hostServices;
+    }
+
+    @FXML
+    private void handleHyperlinkAction() {
+        if (hostServices != null) {
+            hostServices.showDocument("https://spse-po.sk");
+        } else {
+            System.err.println("HostServices nie sú inicializované.");
+        }
+    }
+
+    @FXML
+    public void rotuj(MouseEvent mouseEvent) {
+        obrazok.setRotate(slider.getValue());
+    }
+
 }

@@ -1,21 +1,54 @@
 package sk.spse.uloha2.declarative;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 
-/**
- * Controller pre FXML súbor – obsahuje logiku aplikácie
- */
 public class Controller {
 
-    private int counter = 0;
+    @FXML
+    private TextField usernameField;
 
     @FXML
-    private TextField counterField;
+    private PasswordField passwordField;
 
     @FXML
-    private void incrementCounter() {
-        counter++;
-        counterField.setText(String.valueOf(counter));
+    private ToggleGroup pohlavieGroup;
+
+    @FXML
+    private Button registrovatButton;
+
+    @FXML
+    private Button zavrietButton;
+
+    @FXML
+    public void initialize() {
+        registrovatButton.setOnAction(event -> handleRegistrovat());
+        zavrietButton.setOnAction(event -> handleZavriet());
+    }
+
+    private void handleRegistrovat() {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        String pohlavie = "";
+        if (pohlavieGroup.getSelectedToggle() != null) {
+            pohlavie = ((RadioButton) pohlavieGroup.getSelectedToggle()).getText();
+        } else {
+            pohlavie = "nevybraté";
+        }
+
+        String message = "Užívateľské " + username + "(" + pohlavie + ")" + "s heslom " + password;
+
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Registrácia užívateľa");
+        alert.setHeaderText("Registrácia prebehla úspešne");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void handleZavriet() {
+        Platform.exit();
     }
 }
