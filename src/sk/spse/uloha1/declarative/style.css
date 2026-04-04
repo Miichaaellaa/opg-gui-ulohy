@@ -1,0 +1,24 @@
+#Vbox{
+    -fx-background-image: url("calculator.jpeg");
+    -fx-background-size: 500;
+}
+
+.label{
+    -fx-font-text: 20;
+    -fx-text-fill: #930b1e;
+    -fx-font-weight: bold;
+}
+
+.text-field{
+    -fx-opacity: 0.8;
+    -fx-border-color: white;
+    -fx-text-fill: #930b1e;
+    -fx-font-weight: bold;
+}
+
+.text-field:hover{
+    -fx-border-color:  #930b1e;
+}
+
+
+
