@@ -2,11 +2,10 @@ package sk.spse.uloha3.declarative;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
-import javafx.application.HostServices;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import java.awt.Desktop;
+import java.net.URI;
 
 public class Controller {
 
@@ -17,43 +16,22 @@ public class Controller {
     private Hyperlink hyperlink;
 
     @FXML
-    private ImageView obrazok;
-
-    @FXML
-    private Slider slider;
-
-    private HostServices hostServices;
-
-    @FXML
     public void initialize() {
-        zavrietButton.setOnAction(event -> handleZavriet());
-        slider.setValue(0);
-
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            obrazok.setRotate(newValue.doubleValue());
-        });
-    }
-
-    private void handleZavriet() {
-        Platform.exit();
-    }
-
-    public void setHostServices(HostServices hostServices) {
-        this.hostServices = hostServices;
-    }
-
-    @FXML
-    private void handleHyperlinkAction() {
-        if (hostServices != null) {
-            hostServices.showDocument("https://spse-po.sk");
-        } else {
-            System.err.println("HostServices nie sú inicializované.");
+        if (zavrietButton != null) {
+            zavrietButton.setOnAction(event -> Platform.exit());
         }
     }
 
     @FXML
-    public void rotuj(MouseEvent mouseEvent) {
-        obrazok.setRotate(slider.getValue());
+    private void handleHyperlinkAction() {
+        try {
+            String url = hyperlink.getText();
+            if (!url.startsWith("http")) {
+                url = "https://" + url;
+            }
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (Exception e) {
+            System.err.println("Nepodarilo sa otvoriť prehliadač: " + e.getMessage());
+        }
     }
-
 }
