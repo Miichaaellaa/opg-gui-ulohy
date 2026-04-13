@@ -15,8 +15,6 @@ import java.io.IOException;
 
 public class Application extends javafx.application.Application {
 
-    private int counter = 0;
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("primary.fxml"));

@@ -1,0 +1,45 @@
+.root {
+    -fx-background-color: #f0f0f0;
+}
+
+.table-view {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(#333 0%, #aaa 100%);
+}
+
+.table-view .column-header-background .label {
+    -fx-text-fill: lightgreen;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: lightgreen;
+}
+
+.table-row-cell {
+    -fx-background-color: #616161;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #424242;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: brown;
+}
+
+#controls {
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+}
+
+.button {
+    -fx-padding: 10px 30px 10px 30px;
+}
